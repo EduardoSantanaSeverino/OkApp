@@ -1,0 +1,1 @@
+import { XXXEntityPluralXXXComponent } from 'app/XXXEntityLowerPluralXXX/XXXEntityLowerPluralXXX.component';

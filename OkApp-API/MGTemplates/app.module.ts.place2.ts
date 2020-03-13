@@ -1,0 +1,4 @@
+        // XXXEntityLowerPluralXXX
+        XXXEntityPluralXXXComponent,
+        CreateXXXEntitySingularXXXDialogComponent,
+        EditXXXEntitySingularXXXDialogComponent,

@@ -1,0 +1,1 @@
+﻿        public const string Pages_XXXEntityPluralXXX = "Pages.XXXEntityPluralXXX";
