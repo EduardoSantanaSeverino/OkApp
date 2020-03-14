@@ -1,0 +1,17 @@
+{|}textarea{|}
+<mat-form-field>
+    <textarea matInput
+              name="Description"
+              [placeholder]="'Description' | localize"
+              [(ngModel)]="XXXEntityLowerSingularXXX.description"></textarea>
+</mat-form-field>
+{|}default{|}
+<mat-form-field>
+    <input matInput
+           name="XXXFieldNameXXX"
+           [placeholder]="'XXXFieldNameXXX' | localize"
+           [(ngModel)]="XXXEntityLowerSingularXXX.XXXFieldNameLowerXXX"
+           required
+           minlength="2"
+           maxlength="XXXFieldMaxLenghtXXX" />
+</mat-form-field>

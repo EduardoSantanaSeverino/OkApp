@@ -1,0 +1,22 @@
+version: '3'
+
+volumes:
+  datafiles:
+  
+services:
+
+    okapp_host:
+      image: eduardoamparo/okapp-host
+      environment:
+        ASPNETCORE_ENVIRONMENT: DockerDev
+        TZ: America/Toronto
+      ports:
+        - "21021:80"
+      volumes:
+        - "./Host-Logs:/app/App_Data/Logs"
+      restart: always
+
+    okapp_ng:
+      image: eduardoamparo/okapp-ng
+      ports:
+        - "80:80"

@@ -1,0 +1,3 @@
+        // XXXEntityLowerSingularXXX
+        CreateXXXEntitySingularXXXDialogComponent,
+        EditXXXEntitySingularXXXDialogComponent,

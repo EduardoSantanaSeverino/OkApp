@@ -1,0 +1,217 @@
+<div class="card" [@routerTransition]>
+    <div class="body">
+
+
+        <h4 class="text-center">Instagram Account {{Instaaccount.userName}} is {{Instaaccount.accountState_Name}}</h4>
+
+        <div class="form-group form-float">
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="">
+         
+                    <div class="">
+
+                        <mat-horizontal-stepper [linear]="true" #stepperTwoFactor *ngIf="twoFactor">
+                            <mat-step [stepControl]="twoFactorForm">
+                                <form [formGroup]="twoFactorForm" (ngSubmit)="twoFactorSubmit()">
+                                    <ng-template matStepLabel>Two Factor Required</ng-template>
+                                    <p>Two Factor Authentication Required</p>
+                                    <p>Code:</p>
+                                    <mat-form-field>
+                                        <input matInput type="number" maxlength="6" placeholder="Two factor code" [(ngModel)]="twoFactorCode" formControlName="twoFactorCode" required>
+                                    </mat-form-field>
+                                    <div class="clearfix" style="height:10px;"></div>
+                                    <div>
+                                        <button mat-button matStepperNext
+                                                [disabled]="!twoFactorForm.valid"
+                                                class="btn bg-indigo  waves-effect waves-light btn-sm">
+                                            <span>
+                                                Auth
+                                            </span>
+                                            <i style="margin-left: 5px;" class="fa fa-arrow-circle-right"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </mat-step>
+                            <mat-step>
+                                <ng-template matStepLabel>Process Complete</ng-template>
+                                {{twoFactorResult}}
+                                <div>
+                                    <button mat-button matStepperPrevious>Back</button>
+                                    <button mat-button [routerLink]="['/app/instaaccounts']">
+                                        <i class="fa fa-arrow-circle-left"></i>
+                                        {{l('BackToInstaAccounts')}}
+                                    </button>
+
+                                </div>
+                            </mat-step>
+                        </mat-horizontal-stepper>
+
+                        <mat-horizontal-stepper [linear]="true" #stepperChallengeRequired *ngIf="challengeRequired">
+                            <mat-step [stepControl]="challengeRequiredMethodsForm" *ngIf="!phoneRequired">
+                                <form [formGroup]="challengeRequiredMethodsForm" (ngSubmit)="challengeRequiredMethodsSubmit()">
+                                    <ng-template matStepLabel>Challenge Required</ng-template>
+                                    <p>
+                                        You need to verify that this is your account.
+                                        Please choose a method to verify your account:
+                                    </p>
+                                    <div class="clearfix" style="height:10px;"></div>
+                                    <mat-radio-group required formControlName="sendVia" [(ngModel)]="sendVia" name="sendVia" aria-label="Select an option">
+                                        <mat-radio-button *ngIf="showPhoneNumber" value="1"> {{phoneNumberDesc}} </mat-radio-button>
+                                        <mat-radio-button *ngIf="showEmail" value="2"> {{emailDesc}} </mat-radio-button>
+                                    </mat-radio-group>
+                                    <div class="clearfix" style="height:10px;"></div>
+                                    <div>
+                                        <button mat-button matStepperNext
+                                                [disabled]="!challengeRequiredMethodsForm.valid"
+                                                class="btn bg-indigo  waves-effect waves-light btn-sm">
+                                            <span>
+                                                Send Code
+                                            </span>
+                                            <i style="margin-left: 5px;" class="fa fa-arrow-circle-right"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </mat-step>
+                            <mat-step [stepControl]="challengeRequiredPhoneForm" *ngIf="phoneRequired">
+                                <form [formGroup]="challengeRequiredPhoneForm" (ngSubmit)="challengeRequiredPhoneSubmit()">
+                                    <ng-template matStepLabel>Submit Phone Number</ng-template>
+
+                                    <p>Your Account Needs To Submit Phone Number</p>
+
+                                    <p>Phone Number:</p>
+
+                                    <mat-form-field>
+                                        <input matInput placeholder="Phone Number" [(ngModel)]="phoneNumber" formControlName="phoneNumber" required>
+                                    </mat-form-field>
+
+                                    <div class="clearfix" style="height:10px;"></div>
+
+                                    <div>
+
+                                        <button mat-button matStepperPrevious class="btn bg-indigo waves-effect waves-light btn-sm margin-right">
+                                            <span>
+                                                Back
+                                            </span>
+                                            <i style="margin-left: 5px;" class="fa fa-arrow-circle-left"></i>
+                                        </button>
+
+                                        <button mat-button matStepperNext
+                                                [disabled]="!challengeRequiredPhoneForm.valid"
+                                                class="btn bg-indigo  waves-effect waves-light btn-sm">
+                                            <span>
+                                                Submit And Send Code
+                                            </span>
+                                            <i style="margin-left: 5px;" class="fa fa-arrow-circle-right"></i>
+                                        </button>
+
+
+                                    </div>
+                                </form>
+                            </mat-step>
+                            <mat-step [stepControl]="challengeRequiredVerifyForm">
+                                <form [formGroup]="challengeRequiredVerifyForm" (ngSubmit)="challengeRequiredVerifySubmit()">
+                                    <ng-template matStepLabel>Verify Code</ng-template>
+
+                                    <p>We have sent you a verification code to your SMS/Email</p>
+
+                                    <p>Verify Code:</p>
+
+                                    <mat-form-field>
+                                        <input matInput type="number" maxlength="6" placeholder="Verify Code" [(ngModel)]="verifyCode" formControlName="verifyCode" required>
+                                    </mat-form-field>
+
+                                    <div class="clearfix" style="height:10px;"></div>
+
+                                    <div>
+
+                                        <button mat-button matStepperPrevious class="btn bg-indigo waves-effect waves-light btn-sm margin-right">
+                                            <span>
+                                                Back
+                                            </span>
+                                            <i style="margin-left: 5px;" class="fa fa-arrow-circle-left"></i>
+                                        </button>
+
+                                        <button mat-button class="btn bg-indigo waves-effect waves-light btn-sm margin-right" (click)="resendVerificationCode()">
+                                            <span>
+                                                Resend verification code
+                                            </span>
+                                            <i style="margin-left: 5px;" class="fa fa-product-hunt"></i>
+                                        </button>
+
+                                        <button mat-button matStepperNext
+                                                [disabled]="!challengeRequiredVerifyForm.valid"
+                                                class="btn bg-indigo  waves-effect waves-light btn-sm">
+                                            <span>
+                                                Verify
+                                            </span>
+                                            <i style="margin-left: 5px;" class="fa fa-arrow-circle-right"></i>
+                                        </button>
+
+                                    </div>
+                                </form>
+                            </mat-step>
+                            <mat-step>
+                                <ng-template matStepLabel>Process Complete</ng-template>
+
+                                <p>{{challengeRequiredResult}}</p>
+
+                                <div class="clearfix" style="height:10px;"></div>
+
+                                <div>
+
+
+
+                                    <button mat-button matStepperPrevious class="btn bg-indigo waves-effect waves-light btn-sm margin-right">
+                                        <span>
+                                            Back
+                                        </span>
+                                        <i style="margin-left: 5px;" class="fa fa-arrow-circle-left"></i>
+                                    </button>
+
+                                    <button mat-button [routerLink]="['/app/instaaccounts']" class="btn bg-indigo  waves-effect waves-light btn-sm margin-right">
+                                        <span>
+                                            Back To Insta Accounts
+                                        </span>
+                                        <i style="margin-left: 5px;" class="fa fa-arrow-circle-left"></i>
+                                    </button>
+
+                                  
+
+                                </div>
+                            </mat-step>
+                        </mat-horizontal-stepper>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="form-actions text-center">
+
+            <button mat-button (click)="logout()">
+                <mat-icon>input</mat-icon>
+                {{ 'Logout' | localize }}
+            </button>
+
+            <span>&nbsp;</span>
+
+            <button mat-button (click)="editInstaaccount(Instaaccount)">
+                <mat-icon>edit</mat-icon>
+                Update Password
+            </button>
+
+            <span>&nbsp;</span>
+
+            <button mat-button (click)="checkUserStatus()">
+                <mat-icon>autorenew</mat-icon>
+                Re-Validate
+            </button>
+
+        </div>
+
+     
+    </div>
+</div>

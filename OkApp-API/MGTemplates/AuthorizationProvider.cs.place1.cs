@@ -1,0 +1,1 @@
+﻿            context.CreatePermission(PermissionNames.Pages_XXXEntityPluralXXX, L("XXXEntityPluralXXX"));
