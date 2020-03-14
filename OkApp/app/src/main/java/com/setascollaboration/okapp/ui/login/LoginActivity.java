@@ -1,5 +1,6 @@
 package com.setascollaboration.okapp.ui.login;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -18,6 +19,8 @@ public class LoginActivity extends AppCompatActivity {
     private Spinner languageSpinner;
     long delay = 3000; // 3 seconds after user stops typing
     long last_text_edit = 0;
+    private AlertDialog.Builder builder;
+    private AlertDialog dialog;
     Handler handler = new Handler();
 
     @Override
@@ -36,6 +39,10 @@ public class LoginActivity extends AppCompatActivity {
         //Assign to specific elements
         usernameField = (EditText) findViewById(R.id.username);
         passwordField = (EditText) findViewById(R.id.password);
+        builder = new AlertDialog.Builder(LoginActivity.this);
+        builder.setCancelable(false); // if you want user to wait for some process to finish,
+        builder.setView(R.layout.myprogress_dialog);
+        dialog = builder.create();
         passwordField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -57,8 +64,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-        languageSpinner = (Spinner) findViewById(R.id.spinner_language);
 
+        languageSpinner = (Spinner) findViewById(R.id.spinner_language);
         //Populate the language dropdown
         Spinner spinner = (Spinner) findViewById(R.id.spinner_language);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.spinner_language, android.R.layout.simple_spinner_item);
