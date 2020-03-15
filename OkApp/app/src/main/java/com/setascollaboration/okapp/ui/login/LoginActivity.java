@@ -12,9 +12,11 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.setascollaboration.okapp.MainActivity;
@@ -30,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText usernameField;
     private Spinner languageSpinner;
     private String ServerUrl;
+    private TextView createAccount;
     private SharedPreferences myPreference;
     long delay = 3000; // 3 seconds after user stops typing
     long last_text_edit = 0;
@@ -61,6 +64,16 @@ public class LoginActivity extends AppCompatActivity {
         //Assign to specific elements
         usernameField = (EditText) findViewById(R.id.username);
         passwordField = (EditText) findViewById(R.id.password);
+        createAccount = (TextView) findViewById(R.id.txtCreateAcc);
+
+        createAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
         myPreference = getSharedPreferences("MyPrefs",MODE_PRIVATE);
         ServerUrl = myPreference.getString("IPAddress", "");
         builder = new AlertDialog.Builder(LoginActivity.this);

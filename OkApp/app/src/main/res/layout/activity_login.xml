@@ -56,9 +56,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/txtCreateAcc"
         android:layout_marginTop="30dp"
         android:text="@string/action_create_account"
         android:textAlignment="center"
+        android:clickable="true"
         android:textSize="18dp"
         android:textStyle="bold" />
 
