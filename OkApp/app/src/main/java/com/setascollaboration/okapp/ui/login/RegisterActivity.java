@@ -1,122 +1,99 @@
 package com.setascollaboration.okapp.ui.login;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import com.setascollaboration.okapp.MainActivity;
 import com.setascollaboration.okapp.Model.User;
 import com.setascollaboration.okapp.Model.UserDTO;
 import com.setascollaboration.okapp.R;
-
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+import java.util.Locale;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
+
     private EditText passwordField;
     private EditText usernameField;
+    private EditText emailField;
+    private EditText birthdateField;
     private Spinner languageSpinner;
     private String ServerUrl;
-    private TextView createAccount;
+    private TextView registerAccount;
     private SharedPreferences myPreference;
-    long delay = 3000; // 3 seconds after user stops typing
-    long last_text_edit = 0;
     private AlertDialog.Builder builder;
     private AlertDialog dialog;
-    Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        final Runnable input_finish_checker = new Runnable() {
-            public void run() {
-                if (System.currentTimeMillis() > (last_text_edit + delay - 500)) {
-                    User c = new User(usernameField.getText().toString(), passwordField.getText().toString());
-                    User[] userArray = {c};
-                    dialog.show();
-                    try {
-                        new LoginRestTask().execute(userArray);
-                    } catch (Exception e) {
-                        Log.e("LoginActivity", e.getMessage());
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.server_error), Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-        };
+        setContentView(R.layout.activity_register);
 
         //Assign to specific elements
-        usernameField = (EditText) findViewById(R.id.username);
-        passwordField = (EditText) findViewById(R.id.password);
-        createAccount = (TextView) findViewById(R.id.txtCreateAcc);
+        usernameField = (EditText) findViewById(R.id.txt_username);
+        passwordField = (EditText) findViewById(R.id.txt_password);
+        emailField = (EditText) findViewById(R.id.txt_email);
+        birthdateField = (EditText) findViewById(R.id.txt_birthdate);
+        registerAccount = (TextView) findViewById(R.id.txtRegisterAcc);
+        languageSpinner = (Spinner) findViewById(R.id.spinner_language);
 
-        createAccount.setOnClickListener(new View.OnClickListener() {
+        languageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+                switch (pos) {
+                    case 0:
+                        setLocale("1");
+                        break;
+                    case 1:
+                        setLocale("2");
+                        break;
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        registerAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
-                startActivity(intent);
+
+                User c = new User(usernameField.getText().toString(), passwordField.getText().toString(),
+                                  emailField.getText().toString(), birthdateField.getText().toString(),
+                                  languageSpinner.toString());
+                User[] userArray = {c};
+                dialog.show();
+                try {
+                    new RegisterActivity.RegisterRestTask().execute(userArray);
+                } catch (Exception e) {
+                    Log.e("RegisterActivity", e.getMessage());
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.server_error), Toast.LENGTH_LONG).show();
+                }
             }
         });
 
         myPreference = getSharedPreferences("MyPrefs",MODE_PRIVATE);
-        ServerUrl = myPreference.getString("IPAddress", "");
-        builder = new AlertDialog.Builder(LoginActivity.this);
+        ServerUrl = myPreference.getString("IPAddress", "http://ec2-99-79-47-193.ca-central-1.compute.amazonaws.com:21021/");
+
+        builder = new AlertDialog.Builder(RegisterActivity.this);
         builder.setCancelable(false); // if you want user to wait for some process to finish,
         builder.setView(R.layout.myprogress_dialog);
         dialog = builder.create();
-        usernameField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                passwordField.setText("");
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-        passwordField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                handler.removeCallbacks(input_finish_checker);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (editable.length() > 0) {
-                    last_text_edit = System.currentTimeMillis();
-                    handler.postDelayed(input_finish_checker, delay);
-                } else {
-
-                }
-            }
-        });
 
         languageSpinner = (Spinner) findViewById(R.id.spinner_language);
         //Populate the language dropdown
@@ -124,17 +101,16 @@ public class LoginActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.spinner_language, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
     }
 
-    private class LoginRestTask extends AsyncTask<User, Void, UserDTO> {
+    private class RegisterRestTask extends AsyncTask<User, Void, UserDTO> {
 
         @Override
         protected UserDTO doInBackground(User... users) {
             try {
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                return restTemplate.postForObject(ServerUrl + "/api/users/login", users[0], UserDTO.class);
+                return restTemplate.postForObject(ServerUrl + "api/services/app/Account/Register", users[0], UserDTO.class);
             } catch (Exception ex) {
                 Log.e("ERROR: ", ex.getMessage());
                 return null;
@@ -161,10 +137,10 @@ public class LoginActivity extends AppCompatActivity {
             }
             else
             {
-                AlertDialog alertDialog = new AlertDialog.Builder(LoginActivity.this).create();
+                AlertDialog alertDialog = new AlertDialog.Builder(RegisterActivity.this).create();
                 alertDialog.setCancelable(false);
                 alertDialog.setTitle(getResources().getString(R.string.alert));
-                alertDialog.setMessage(getResources().getString(R.string.login_error));
+                alertDialog.setMessage(getResources().getString(R.string.register_error));
 
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                         new DialogInterface.OnClickListener() {
@@ -174,7 +150,18 @@ public class LoginActivity extends AppCompatActivity {
                         });
                 alertDialog.show();
             }
-
         }
     }
+
+    private void setLocale(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("my_lang", lang);
+        editor.apply();
+    }
+
 }

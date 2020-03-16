@@ -26,6 +26,14 @@
     <string name="login_error">Identifiant ou mot de passe incorrect.</string>
     <string name="please_wait">S\'il vous plaît, attendez</string>
     <string name="server_error">Une erreur est survenue</string>
+
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password_confirmation">Confirmation mot de passe</string>
+    <string name="prompt_birthdate">Date de naissance</string>
+    <string name="prompt_language">Langage</string>
+    <string name="action_register_account">Créer un compte</string>
+    <string name="register_error">Impossible d enregistrer un nouvel utilisateur.</string>
+
     <string-array name="spinner_language">
         <item>Anglaise</item>
         <item>Française</item>
