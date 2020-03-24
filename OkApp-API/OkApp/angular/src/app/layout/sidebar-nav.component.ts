@@ -19,6 +19,7 @@ export class SideBarNavComponent extends AppComponentBase {
         new MenuItem(this.l('Apilogs'), 'Pages.Apilogs', 'track_changes', '/app/apilogs'),
         new MenuItem(this.l('Accounts'), 'Pages.Instaaccounts', 'account_box', '/app/instaaccounts'),
         new MenuItem(this.l('Backgroundjobs'), 'Pages.Backgroundjobs', 'local_offer', '/app/backgroundjobs'),
+        new MenuItem(this.l('Languages'), 'Pages.Languages', 'local_offer', '/app/languages'),
 ///sidebar-nav.component.ts.place1///
     ];
 
@@ -36,6 +37,7 @@ export class SideBarNavComponent extends AppComponentBase {
         return true;
     }
 }
+
 
 
 

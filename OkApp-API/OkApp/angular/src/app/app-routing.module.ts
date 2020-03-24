@@ -18,6 +18,7 @@ import { DetailInstaaccountComponent } from './instaaccounts/detail-instaaccount
 import { InfoInstaaccountComponent } from './instaaccounts/info-instaaccount/info-instaaccount.component';
 import { BackgroundjobsComponent } from 'app/backgroundjobs/backgroundjobs.component';
 
+import { LanguagesComponent } from 'app/languages/languages.component';
 ///app-routing.module.ts.place1///
 @NgModule({
     imports: [
@@ -43,7 +44,8 @@ import { BackgroundjobsComponent } from 'app/backgroundjobs/backgroundjobs.compo
                     { path: 'instaaccounts/detail/:instaAccountId', component: DetailInstaaccountComponent, data: { permission: 'Pages.Instaaccounts' }, canActivate: [AppRouteGuard] },
                     { path: 'instaaccounts/info/:instaAccountId', component: InfoInstaaccountComponent, data: { permission: 'Pages.Instaaccounts' }, canActivate: [AppRouteGuard] },
                     { path: 'backgroundjobs', component: BackgroundjobsComponent, data: { permission: 'Pages.Backgroundjobs' }, canActivate: [AppRouteGuard] },
-                    ///app-routing.module.ts.place2///
+                                        { path: 'languages', component: LanguagesComponent, data: { permission: 'Pages.Languages' }, canActivate: [AppRouteGuard] },
+///app-routing.module.ts.place2///
                 ]
             }
         ])
@@ -51,4 +53,5 @@ import { BackgroundjobsComponent } from 'app/backgroundjobs/backgroundjobs.compo
     exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
 

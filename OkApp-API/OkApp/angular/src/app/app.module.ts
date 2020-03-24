@@ -65,6 +65,10 @@ import { InfoInstaaccountComponent } from './instaaccounts/info-instaaccount/inf
 import { BackgroundjobsComponent } from '@app/backgroundjobs/backgroundjobs.component';
 import { CreateBackgroundjobDialogComponent } from './backgroundjobs/create-backgroundjob/create-backgroundjob-dialog.component';
 import { EditBackgroundjobDialogComponent } from './backgroundjobs/edit-backgroundjob/edit-backgroundjob-dialog.component';
+// languages
+import { LanguagesComponent } from '@app/languages/languages.component';
+import { CreateLanguageDialogComponent } from './languages/create-language/create-language-dialog.component';
+import { EditLanguageDialogComponent } from './languages/edit-language/edit-language-dialog.component';
 ///app.module.ts.place1///
 @NgModule({
     declarations: [
@@ -117,6 +121,10 @@ import { EditBackgroundjobDialogComponent } from './backgroundjobs/edit-backgrou
         BackgroundjobsComponent,
         CreateBackgroundjobDialogComponent,
         EditBackgroundjobDialogComponent,
+        // languages
+        LanguagesComponent,
+        CreateLanguageDialogComponent,
+        EditLanguageDialogComponent,
 ///app.module.ts.place2///
     ],
     imports: [
@@ -162,8 +170,12 @@ import { EditBackgroundjobDialogComponent } from './backgroundjobs/edit-backgrou
         // backgroundJob
         CreateBackgroundjobDialogComponent,
         EditBackgroundjobDialogComponent,
+        // language
+        CreateLanguageDialogComponent,
+        EditLanguageDialogComponent,
 ///app.module.ts.place3///
     ]
 })
 export class AppModule { }
+
 

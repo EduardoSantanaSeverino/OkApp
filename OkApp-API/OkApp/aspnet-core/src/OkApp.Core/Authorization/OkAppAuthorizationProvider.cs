@@ -1,4 +1,4 @@
-﻿using Abp.Authorization;
+using Abp.Authorization;
 using Abp.Localization;
 using Abp.MultiTenancy;
 
@@ -19,6 +19,7 @@ namespace OkApp.Authorization
             context.CreatePermission(PermissionNames.Pages_CampaignActions, L("CampaignActions"));
             context.CreatePermission(PermissionNames.Pages_Instaaccounts, L("Instaaccounts"));
             context.CreatePermission(PermissionNames.Pages_Backgroundjobs, L("Backgroundjobs"));
+            context.CreatePermission(PermissionNames.Pages_Languages, L("Languages"));
 ///AuthorizationProvider.cs.place1///
         }
 
@@ -28,6 +29,7 @@ namespace OkApp.Authorization
         }
     }
 }
+
 
 
 

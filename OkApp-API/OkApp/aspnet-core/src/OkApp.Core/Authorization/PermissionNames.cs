@@ -1,4 +1,4 @@
-﻿namespace OkApp.Authorization
+namespace OkApp.Authorization
 {
     public static class PermissionNames
     {
@@ -23,10 +23,12 @@
         public const string Pages_Instaaccounts = "Pages.Instaaccounts";
 
         public const string Pages_Backgroundjobs = "Pages.Backgroundjobs";
+        public const string Pages_Languages = "Pages.Languages";
 ///PermissionNames.cs.place1///
 
     }
 }
+
 
 
 
