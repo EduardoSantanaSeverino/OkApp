@@ -24,9 +24,10 @@ namespace OkApp.Languages
             _applicationLanguageManager = applicationLanguageManager;
         }
 
+        [AbpAllowAnonymous]
         public async Task<List<LanguageDto>> GetLanguages()
         {
-            var query = await _applicationLanguageManager.GetLanguagesAsync(AbpSession.TenantId);
+            var query = await _applicationLanguageManager.GetLanguagesAsync(AbpSession?.TenantId);
             var output = ObjectMapper.Map<List<LanguageDto>>(query.ToList());
             return output;
         }
