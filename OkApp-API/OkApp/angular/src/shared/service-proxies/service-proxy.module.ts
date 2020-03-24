@@ -19,11 +19,13 @@ import * as ApiServiceProxies from './service-proxies';
 		ApiServiceProxies.ApilogServiceProxy,
         ApiServiceProxies.CampaignactionServiceProxy,
         ApiServiceProxies.BackgroundjobServiceProxy,
+        ApiServiceProxies.LanguageServiceProxy,
 ///service-proxy.module.ts.place1///
         { provide: HTTP_INTERCEPTORS, useClass: AbpHttpInterceptor, multi: true }
     ]
 })
 export class ServiceProxyModule { }
+
 
 
 

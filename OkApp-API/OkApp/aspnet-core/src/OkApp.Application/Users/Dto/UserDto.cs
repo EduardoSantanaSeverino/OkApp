@@ -38,6 +38,10 @@ namespace OkApp.Users.Dto
         public DateTime CreationTime { get; set; }
 
         public string[] RoleNames { get; set; }
+        
+        public DateTime? DateOfBirth { get; set; }
+
+        public int LanguageId { get; set; }
     }
 }
 

@@ -1,0 +1,70 @@
+<form autocomplete="off" #editLanguageForm="ngForm" (ngSubmit)="save()">
+  <h1 mat-dialog-title>{{ "EditLanguage" | localize }}</h1>
+  <mat-dialog-content style="width:600px;height:300px;">
+    <mat-tab-group>
+      <mat-tab [label]="'Details' | localize">
+        <br />
+        <div class="row-fluid">
+            <div class="col-md-12">
+                
+<mat-form-field>
+    <input matInput
+           name="Name"
+           [placeholder]="'Name' | localize"
+           [(ngModel)]="language.name"
+           required
+           minlength="2"
+           maxlength="10" />
+</mat-form-field>
+
+<mat-form-field>
+    <input matInput
+           name="DisplayName"
+           [placeholder]="'DisplayName' | localize"
+           [(ngModel)]="language.displayname"
+           required
+           minlength="2"
+           maxlength="64" />
+</mat-form-field>
+
+<mat-form-field>
+    <input matInput
+           name="Icon"
+           [placeholder]="'Icon' | localize"
+           [(ngModel)]="language.icon"
+           required
+           minlength="2"
+           maxlength="128" />
+</mat-form-field>
+
+<mat-form-field>
+    <input matInput
+           name="IsDisabled"
+           [placeholder]="'IsDisabled' | localize"
+           [(ngModel)]="language.isdisabled"
+           required
+           minlength="2"
+           maxlength="256" />
+</mat-form-field>
+<!--edit-dialog.component.html.fields1-->
+            </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-dialog-content>
+  <div mat-dialog-actions align="end">
+    <button mat-button type="button" [disabled]="saving" (click)="close(false)">
+      {{ "Cancel" | localize }}
+    </button>
+    <button
+      mat-flat-button
+      type="submit"
+      flex="15"
+      color="primary"
+      [disabled]="!editLanguageForm.form.valid || saving"
+    >
+      {{ "Save" | localize }}
+    </button>
+  </div>
+</form>
+
