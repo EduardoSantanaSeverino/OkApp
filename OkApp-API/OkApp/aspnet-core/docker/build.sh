@@ -15,3 +15,7 @@ sudo docker push eduardoamparo/okapp-host
 sudo echo "Done. -- Pushing docker image eduardoamparo/okapp-host..."
 sudo echo ""
 sudo echo ""
+
+sudo echo "Loging to Remote server and restart application."
+ssh parrotsays "cd okapp && ./down.sh && ./up.sh"
+sudo echo ""
