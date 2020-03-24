@@ -17,5 +17,5 @@ sudo echo ""
 sudo echo ""
 
 sudo echo "Loging to Remote server and restart application."
-ssh parrotsays "cd okapp && ./down.sh && ./up.sh"
+ssh okapp "cd okapp && ./down.sh && ./up.sh"
 sudo echo ""
