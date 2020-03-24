@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Abp.Auditing;
 using Abp.Authorization.Users;
@@ -31,8 +32,9 @@ namespace OkApp.Authorization.Accounts.Dto
         [DisableAuditing]
         public string Password { get; set; }
 
-        [DisableAuditing]
-        public string CaptchaResponse { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+
+        public int LanguageId { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

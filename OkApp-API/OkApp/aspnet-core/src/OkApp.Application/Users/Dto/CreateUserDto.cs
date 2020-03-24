@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Abp.Auditing;
 using Abp.Authorization.Users;
@@ -44,6 +45,10 @@ namespace OkApp.Users.Dto
                 RoleNames = new string[0];
             }
         }
+        
+        public DateTime? DateOfBirth { get; set; }
+
+        public int LanguageId { get; set; }
 
     }
 }
