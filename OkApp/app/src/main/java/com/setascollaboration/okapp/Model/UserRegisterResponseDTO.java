@@ -1,5 +1,8 @@
 package com.setascollaboration.okapp.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserRegisterDTO {
 
     private Boolean cantLogin;

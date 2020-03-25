@@ -1,7 +1,17 @@
 package com.setascollaboration.okapp.Model;
 
-
+/*
+* "name": "eduardo42",
+  "surname": "eduardo42",
+  "userName": "eduardo42",
+  "emailAddress": "eduardo42@me.com",
+  "password": "eduardo42@42",
+  "dateOfBirth": "2020-03-25T20:38:32.400Z",
+  "languageId": 1
+}
+*/
 public class UserRegister {
+
     private String userName;
     private String password;
     private String emailAddress;
@@ -9,6 +19,8 @@ public class UserRegister {
     private String languageId;
     private String name;
     private String surname;
+
+    public UserRegister(){}
 
     public String getName() {
         return name;
