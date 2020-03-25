@@ -1,26 +1,16 @@
 package com.setascollaboration.okapp.Model;
 
-/*
-* "name": "eduardo42",
-  "surname": "eduardo42",
-  "userName": "eduardo42",
-  "emailAddress": "eduardo42@me.com",
-  "password": "eduardo42@42",
-  "dateOfBirth": "2020-03-25T20:38:32.400Z",
-  "languageId": 1
-}
-*/
-public class UserRegister {
+public class UserRegisterRequestDTO {
 
     private String userName;
     private String password;
     private String emailAddress;
     private String dateOfBirth;
-    private String languageId;
+    private int languageId;
     private String name;
     private String surname;
 
-    public UserRegister(){}
+    public UserRegisterRequestDTO(){}
 
     public String getName() {
         return name;
@@ -70,21 +60,31 @@ public class UserRegister {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getLanguageId() {
+    public int getLanguageId() {
         return languageId;
     }
 
-    public void setLanguageId(String languageId) {
+    public void setLanguageId(int languageId) {
         this.languageId = languageId;
     }
 
-    public UserRegister(String name, String surname, String userName, String emailAddress, String password, String dateOfBirth, String languageId){
+    public UserRegisterRequestDTO(String name, String surname, String userName, String emailAddress, String password, String dateOfBirth, int languageId){
+
         this.name = name;
         this.surname = surname;
         this.userName = userName;
         this.emailAddress = emailAddress;
         this.password = password;
-        this.dateOfBirth = dateOfBirth;
         this.languageId = languageId;
+
+        // TODO: FIX
+        // Please note the setter for date of birth is hard code.
+        // Please take the dateOfBirth and validate the format is as below if not, throw exception
+        // Please add some logic to generate the date format below from the user input.
+
+        this.dateOfBirth = "2020-03-25T00:00:00.000Z"; // <-- validate it
+
+        // END - FIX
+
     }
 }

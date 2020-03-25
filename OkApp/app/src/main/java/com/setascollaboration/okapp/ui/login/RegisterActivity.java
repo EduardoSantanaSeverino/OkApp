@@ -17,8 +17,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.setascollaboration.okapp.MainActivity;
-import com.setascollaboration.okapp.Model.UserRegister;
-import com.setascollaboration.okapp.Model.UserRegisterDTO;
+import com.setascollaboration.okapp.Model.UserRegisterRequestDTO;
+import com.setascollaboration.okapp.Model.UserRegisterResponseDTO;
 import com.setascollaboration.okapp.R;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -77,10 +77,10 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                UserRegister c = new UserRegister(nameField.getText().toString(), surnameField.getText().toString(), usernameField.getText().toString(),emailAddressField.getText().toString(), passwordField.getText().toString(),
-                        dateOfBirthField.getText().toString(), "1");
+                UserRegisterRequestDTO c = new UserRegisterRequestDTO(nameField.getText().toString(), surnameField.getText().toString(), usernameField.getText().toString(),emailAddressField.getText().toString(), passwordField.getText().toString(),
+                        dateOfBirthField.getText().toString(), 1);
 
-                UserRegister[] userRegisterArray = {c};
+                UserRegisterRequestDTO[] userRegisterArray = {c};
                 dialog.show();
                 try {
                     new RegisterActivity.RegisterRestTask().execute(userRegisterArray);
@@ -106,14 +106,14 @@ public class RegisterActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
     }
 
-    private class RegisterRestTask extends AsyncTask<UserRegister, Void, UserRegisterDTO> {
+    private class RegisterRestTask extends AsyncTask<UserRegisterRequestDTO, Void, UserRegisterResponseDTO> {
 
         @Override
-        protected UserRegisterDTO doInBackground(UserRegister... users) {
+        protected UserRegisterResponseDTO doInBackground(UserRegisterRequestDTO... users) {
             try {
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                return restTemplate.postForObject("http://ec2-99-79-47-193.ca-central-1.compute.amazonaws.com:21021/api/services/app/Account/Register", users[0], UserRegisterDTO.class);
+                return restTemplate.postForObject("http://ec2-99-79-47-193.ca-central-1.compute.amazonaws.com:21021/api/services/app/Account/Register", users[0], UserRegisterResponseDTO.class);
             } catch (Exception ex) {
                 Log.e("ERROR: "+ServerUrl, ex.getMessage());
                 return null;
@@ -121,7 +121,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(UserRegisterDTO userRegisterDTO) {
+        protected void onPostExecute(UserRegisterResponseDTO userRegisterDTO) {
             super.onPostExecute(userRegisterDTO);
 
             dialog.dismiss();
