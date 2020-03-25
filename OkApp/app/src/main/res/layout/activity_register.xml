@@ -29,10 +29,10 @@
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
         android:layout_marginBottom="50dp"
-        android:src="@drawable/okapp" />
+      />
 
     <EditText
-        android:id="@+id/txt_username"
+        android:id="@+id/txt_userName"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
@@ -42,7 +42,7 @@
         android:hint="@string/prompt_username" />
 
     <EditText
-        android:id="@+id/txt_email"
+        android:id="@+id/txt_emailAddress"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
@@ -74,7 +74,7 @@
     <!--        android:inputType="textPassword" />-->
 
     <EditText
-        android:id="@+id/txt_birthdate"
+        android:id="@+id/txt_dateOfBirth"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
@@ -107,3 +107,4 @@
         android:textStyle="bold" />
 
 </LinearLayout>
+

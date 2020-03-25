@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,8 +17,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.setascollaboration.okapp.MainActivity;
-import com.setascollaboration.okapp.Model.User;
-import com.setascollaboration.okapp.Model.UserDTO;
+import com.setascollaboration.okapp.Model.UserRegister;
+import com.setascollaboration.okapp.Model.UserRegisterDTO;
 import com.setascollaboration.okapp.R;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -28,10 +27,12 @@ import java.util.Locale;
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText passwordField;
+    private EditText nameField;
+    private EditText surnameField;
     private EditText usernameField;
-    private EditText emailField;
-    private EditText birthdateField;
-    private Spinner languageSpinner;
+    private EditText emailAddressField;
+    private EditText dateOfBirthField;
+    private Spinner languageIdField;
     private String ServerUrl;
     private TextView registerAccount;
     private SharedPreferences myPreference;
@@ -44,14 +45,16 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         //Assign to specific elements
-        usernameField = (EditText) findViewById(R.id.txt_username);
-        passwordField = (EditText) findViewById(R.id.txt_password);
-        emailField = (EditText) findViewById(R.id.txt_email);
-        birthdateField = (EditText) findViewById(R.id.txt_birthdate);
-        registerAccount = (TextView) findViewById(R.id.txtRegisterAcc);
-        languageSpinner = (Spinner) findViewById(R.id.spinner_language);
+        nameField         = (EditText) findViewById(R.id.txt_userName);
+        surnameField      = (EditText) findViewById(R.id.txt_userName);
+        usernameField     = (EditText) findViewById(R.id.txt_userName);
+        passwordField     = (EditText) findViewById(R.id.txt_password);
+        emailAddressField = (EditText) findViewById(R.id.txt_emailAddress);
+        dateOfBirthField  = (EditText) findViewById(R.id.txt_dateOfBirth);
+        languageIdField   = (Spinner) findViewById(R.id.spinner_language);
+        registerAccount   = (TextView) findViewById(R.id.txtRegisterAcc);
 
-        languageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        languageIdField.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
                 switch (pos) {
@@ -63,6 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
                         break;
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -73,13 +77,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                User c = new User(usernameField.getText().toString(), passwordField.getText().toString(),
-                                  emailField.getText().toString(), birthdateField.getText().toString(),
-                                  languageSpinner.toString());
-                User[] userArray = {c};
+                UserRegister c = new UserRegister(nameField.getText().toString(), surnameField.getText().toString(), usernameField.getText().toString(),emailAddressField.getText().toString(), passwordField.getText().toString(),
+                        dateOfBirthField.getText().toString(), "1");
+
+                UserRegister[] userRegisterArray = {c};
                 dialog.show();
                 try {
-                    new RegisterActivity.RegisterRestTask().execute(userArray);
+                    new RegisterActivity.RegisterRestTask().execute(userRegisterArray);
                 } catch (Exception e) {
                     Log.e("RegisterActivity", e.getMessage());
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.server_error), Toast.LENGTH_LONG).show();
@@ -88,14 +92,13 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         myPreference = getSharedPreferences("MyPrefs",MODE_PRIVATE);
-        ServerUrl = myPreference.getString("IPAddress", "http://ec2-99-79-47-193.ca-central-1.compute.amazonaws.com:21021/");
-
+        ServerUrl = myPreference.getString("IPAddress", "http://ec2-99-79-47-193.ca-central-1.compute.amazonaws.com:21021");
         builder = new AlertDialog.Builder(RegisterActivity.this);
         builder.setCancelable(false); // if you want user to wait for some process to finish,
         builder.setView(R.layout.myprogress_dialog);
         dialog = builder.create();
 
-        languageSpinner = (Spinner) findViewById(R.id.spinner_language);
+        languageIdField = (Spinner) findViewById(R.id.spinner_language);
         //Populate the language dropdown
         Spinner spinner = (Spinner) findViewById(R.id.spinner_language);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.spinner_language, android.R.layout.simple_spinner_item);
@@ -103,29 +106,29 @@ public class RegisterActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
     }
 
-    private class RegisterRestTask extends AsyncTask<User, Void, UserDTO> {
+    private class RegisterRestTask extends AsyncTask<UserRegister, Void, UserRegisterDTO> {
 
         @Override
-        protected UserDTO doInBackground(User... users) {
+        protected UserRegisterDTO doInBackground(UserRegister... users) {
             try {
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                return restTemplate.postForObject(ServerUrl + "api/services/app/Account/Register", users[0], UserDTO.class);
+                return restTemplate.postForObject("http://ec2-99-79-47-193.ca-central-1.compute.amazonaws.com:21021/api/services/app/Account/Register", users[0], UserRegisterDTO.class);
             } catch (Exception ex) {
-                Log.e("ERROR: ", ex.getMessage());
+                Log.e("ERROR: "+ServerUrl, ex.getMessage());
                 return null;
             }
         }
 
         @Override
-        protected void onPostExecute(UserDTO userDTO) {
-            super.onPostExecute(userDTO);
+        protected void onPostExecute(UserRegisterDTO userRegisterDTO) {
+            super.onPostExecute(userRegisterDTO);
 
             dialog.dismiss();
-            if(userDTO != null)
+            if(userRegisterDTO != null)
             {
                 SharedPreferences.Editor prefEditor = myPreference.edit();
-                prefEditor.putString("Token", userDTO.getToken());
+                // prefEditor.putString("Token", userDTO.getToken());
                 prefEditor.commit();
                 Toast.makeText(getApplicationContext(),
                         getResources().getString(R.string.welcome)+", "+usernameField.getText().toString()+"!",
@@ -150,6 +153,7 @@ public class RegisterActivity extends AppCompatActivity {
                         });
                 alertDialog.show();
             }
+
         }
     }
 
@@ -165,3 +169,4 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 }
+
