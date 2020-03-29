@@ -76,15 +76,6 @@ public class UserRegisterRequestDTO {
         this.emailAddress = emailAddress;
         this.password = password;
         this.languageId = languageId;
-
-        // TODO: FIX
-        // Please note the setter for date of birth is hard code.
-        // Please take the dateOfBirth and validate the format is as below if not, throw exception
-        // Please add some logic to generate the date format below from the user input.
-
-        this.dateOfBirth = "2020-03-25T00:00:00.000Z"; // <-- validate it
-
-        // END - FIX
-
+        this.dateOfBirth = dateOfBirth;
     }
 }

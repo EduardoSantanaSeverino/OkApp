@@ -29,7 +29,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
         android:layout_marginBottom="50dp"
-      />
+        android:src="@drawable/okapp" />
 
     <EditText
         android:id="@+id/txt_userName"
@@ -60,7 +60,8 @@
         android:background="@drawable/edit_round"
         android:gravity="center"
         android:hint="@string/prompt_password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:password="true" />
 
     <!--    <EditText-->
     <!--        android:id="@+id/txt_password_confirmation"-->
