@@ -26,6 +26,7 @@
     <string name="login_error">Identifiant ou mot de passe incorrect.</string>
     <string name="please_wait">S\'il vous plaît, attendez</string>
     <string name="server_error">Une erreur est survenue</string>
+    <string name="notice_search">Appuyez sur le profil que vous souhaitez discuter ou rechercher</string>
     <string-array name="spinner_language">
         <item>Anglaise</item>
         <item>Française</item>
