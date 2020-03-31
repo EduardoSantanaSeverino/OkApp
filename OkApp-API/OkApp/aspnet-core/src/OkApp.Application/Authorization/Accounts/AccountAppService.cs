@@ -65,7 +65,9 @@ namespace OkApp.Authorization.Accounts
                 input.EmailAddress,
                 input.UserName,
                 input.Password,
-                true
+                true,
+                input.DateOfBirth,
+                input.LanguageId
             );
 
             var isEmailConfirmationRequiredForLogin = await SettingManager.GetSettingValueAsync<bool>(AbpZeroSettingNames.UserManagement.IsEmailConfirmationRequiredForLogin);

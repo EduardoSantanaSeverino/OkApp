@@ -69,7 +69,7 @@ namespace OkApp.Authorization.Users
             return user;
         }
 
-        public async Task<UserTenantModel> RegisterUserAndTenantAsync(string name, string surname, string emailAddress, string userName, string plainPassword, bool isEmailConfirmed)
+        public async Task<UserTenantModel> RegisterUserAndTenantAsync(string name, string surname, string emailAddress, string userName, string plainPassword, bool isEmailConfirmed, DateTime dob, int languageId)
         {
            
             var retVal = new UserTenantModel();
@@ -82,6 +82,8 @@ namespace OkApp.Authorization.Users
                 IsActive = true,
                 UserName = userName,
                 IsEmailConfirmed = isEmailConfirmed,
+                LanguageId = languageId,
+                DateOfBirth = dob,
                 Roles = new List<UserRole>()
             };
 
