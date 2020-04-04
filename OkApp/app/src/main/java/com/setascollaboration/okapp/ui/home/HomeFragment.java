@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,22 +16,25 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.setascollaboration.okapp.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        List<String> fruits = new ArrayList<String>();
+        fruits.add("test");
+
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        AutoCompleteTextView actv = (AutoCompleteTextView) root.findViewById(R.id.autoCompleteTextView);
+        actv.setAdapter(new ArrayAdapter<String>(getActivity().getApplicationContext(),
+                R.layout.custom_autocomplete , fruits));
+        actv.setThreshold(1);
         return root;
     }
 }
