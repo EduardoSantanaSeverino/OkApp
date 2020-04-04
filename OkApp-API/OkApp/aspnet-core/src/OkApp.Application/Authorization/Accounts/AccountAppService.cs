@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Abp.Configuration;
 using Abp.Domain.Repositories;
@@ -65,7 +66,9 @@ namespace OkApp.Authorization.Accounts
                 input.EmailAddress,
                 input.UserName,
                 input.Password,
-                true
+                true,
+                input.DateOfBirth ?? new DateTime(),
+                input.LanguageId
             );
 
             var isEmailConfirmationRequiredForLogin = await SettingManager.GetSettingValueAsync<bool>(AbpZeroSettingNames.UserManagement.IsEmailConfirmationRequiredForLogin);
