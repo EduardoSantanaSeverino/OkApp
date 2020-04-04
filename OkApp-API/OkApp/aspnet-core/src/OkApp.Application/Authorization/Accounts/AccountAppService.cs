@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Abp.Configuration;
 using Abp.Domain.Repositories;
@@ -66,7 +67,7 @@ namespace OkApp.Authorization.Accounts
                 input.UserName,
                 input.Password,
                 true,
-                input.DateOfBirth,
+                input.DateOfBirth ?? new DateTime(),
                 input.LanguageId
             );
 
