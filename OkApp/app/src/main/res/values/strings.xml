@@ -26,6 +26,14 @@
     <string name="please_wait">Please wait</string>
     <string name="server_error">An error occurred</string>
     <string name="notice_search">Tap on the profile you would like to chat or search</string>
+
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password_confirmation">Password Confirmation</string>
+    <string name="prompt_birthdate">Birthdate</string>
+    <string name="prompt_language">Language</string>
+    <string name="action_register_account">Register Account</string>
+    <string name="register_error">Unable to register a new user.</string>
+
     <string-array name="spinner_language">
         <item>English</item>
         <item>French</item>

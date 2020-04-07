@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.login.RegisterActivity">
+
+    <RelativeLayout
+        android:id="@+id/loadingpanel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="2dp"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_round"
+            android:elevation="10dp"
+            android:indeterminate="true" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/okapp" />
+
+    <EditText
+        android:id="@+id/txt_userName"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10px"
+        android:background="@drawable/edit_round"
+        android:gravity="center"
+        android:hint="@string/prompt_username" />
+
+    <EditText
+        android:id="@+id/txt_emailAddress"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10px"
+        android:background="@drawable/edit_round"
+        android:gravity="center"
+        android:hint="@string/prompt_email" />
+
+    <EditText
+        android:id="@+id/txt_password"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10px"
+        android:background="@drawable/edit_round"
+        android:gravity="center"
+        android:hint="@string/prompt_password"
+        android:inputType="textPassword"
+        android:password="true" />
+
+    <!--    <EditText-->
+    <!--        android:id="@+id/txt_password_confirmation"-->
+    <!--        android:layout_width="300dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:layout_gravity="center"-->
+    <!--        android:layout_marginBottom="10px"-->
+    <!--        android:background="@drawable/edit_round"-->
+    <!--        android:gravity="center"-->
+    <!--        android:hint="@string/prompt_password_confirmation"-->
+    <!--        android:inputType="textPassword" />-->
+
+    <EditText
+        android:id="@+id/txt_dateOfBirth"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10px"
+        android:background="@drawable/edit_round"
+        android:gravity="center"
+        android:inputType="date"
+        android:hint="@string/prompt_birthdate" />
+
+    <Spinner
+        android:id="@+id/spinner_language"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10px"
+        android:background="@drawable/edit_round"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:hint="@string/prompt_language" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtRegisterAcc"
+        android:layout_marginTop="10dp"
+        android:text="@string/action_register_account"
+        android:textAlignment="center"
+        android:clickable="true"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+</LinearLayout>
+
