@@ -9,9 +9,11 @@ services:
     image: mysql:8.0.0
     volumes:
       - ./Host-Dbs:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: OkAppDB
+      MYSQL_ROOT_PASSWORD: 6Bb5gCjPAvATLQWk
       TZ: America/Toronto
     ports:
       - "3306:3306"
